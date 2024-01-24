@@ -1,22 +1,27 @@
-name: Test & Deploy
+name: Angular CI
 on:
+  push:
+    branches: [ main ]
   pull_request:
     branches: [ main ]
-  # top-level call-out of the different tasks within the workflow
+  workflow_dispatch:
 jobs:
-  # job id
-  test:
-    name: Test
+  build:
     runs-on: ubuntu-latest
-
-    # list of steps to complete in the workflow, in order
     steps:
-      # extend from these published, pre-configured actions
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v2
+      - name: Cache node modules
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-node-modules
         with:
-          # the node version for the setup-node action
-          node-version: 20.x
-          # Install packages and run tests
-      - run: npm ci
-      - run: npm test
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+      - name: npm install and npm run CI commands
+        run: |
+          npm i
+          npm run test:ci
+          npm run build:ci
