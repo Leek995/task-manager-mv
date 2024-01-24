@@ -1,12 +1,9 @@
 const checkInputValues = (req, res, next) => {
   try {
     let title = req.body.title;
-    let price = req.body.price;
-    let description = req.body.description;
-    let category = req.body.category
-    let image = req.body.image;
+    let completed = req.body.completed;
 
-    if(!title && !price && !description && !category && !image){
+    if(!title && !completed){
       throw new Error("Cannot be empty fields");
     } else {
       next();
