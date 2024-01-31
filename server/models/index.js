@@ -1,12 +1,8 @@
-const {Sequelize} = require('sequelize')
-const {sequelize} = require('../db')
+const Task = require('./task');
+const User = require('./user');
 
-const Task = sequelize.define("tasks", {
-  title: Sequelize.STRING,
-  completed: Sequelize.BOOLEAN,
-})
 
-module.exports = {
-  db: sequelize,
-  Task
-};
+module.exports =
+  Task,
+  User
+;

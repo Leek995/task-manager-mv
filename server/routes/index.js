@@ -1,8 +1,12 @@
 const express = require("express");
 const router = express.Router();
+const { protect } = require('../middleware/checkTok')
+
 
 // different model routers
-router.use('/tasks', require('./tasks'));
+router.use('/tasks', protect, require('./tasks'));
+router.use('/users', require('./user'));
+router.use('/register', require('./register'));
 
 
 module.exports = router;

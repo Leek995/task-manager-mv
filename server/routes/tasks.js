@@ -2,9 +2,10 @@ const express = require("express");
 const router = express.Router();
 const { Task } = require("../models");
 const checkInputValues = require("../middleware/checkInputValues");
+const {protect} = require("../middleware/checkTok");
 
 // GET /tasks  all tasks
-router.get("/", async (req, res, next) => {
+router.get("/", protect , async (req, res, next) => {
   try {
     const tasks = await Task.findAll();
     res.send(tasks);
