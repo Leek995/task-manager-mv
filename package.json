@@ -8,6 +8,7 @@
     "prebuild": "node server.js",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
+    "seed": "node server/seed.js",
     "test:ci": "ng test --watch=false --browsers=ChromeHeadlessCustom",
     "build:ci": "ng build --configuration production"
   },
